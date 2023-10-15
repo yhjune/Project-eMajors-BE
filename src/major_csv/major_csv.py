@@ -1,7 +1,7 @@
 import tabula
 import pandas as pd
 
-m_pdf_path = '/Users/yhjune/Desktop/playground/pdf_to_exl/전공/경영대학/주전공_경영학부.pdf'
+m_pdf_path = ''
 m_csv_name = m_pdf_path.split('/')[-1].split('.')[0]+".csv"
 m_condi_name = "F_condi_"+m_csv_name.split("_")[-1]
 

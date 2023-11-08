@@ -1,11 +1,20 @@
 import cvs_func
 
-msg = "roll the dice"
+msg = "Roll the dice"
 print(msg)
 
-cvs_func.course_introduction_csv()
-cvs_func.double_major_csv()
-cvs_func.major_csv()
 
-print("fin")
+## ci , dm, m file path recusive
+print("Getting file pahts...")
 
+## ci
+print("Getting course introductions...")
+
+## m 
+print("Getting majors...")
+
+## dm
+print("Getting doule majors...")
+
+
+print("Exporting csv finished")

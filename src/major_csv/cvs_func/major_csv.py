@@ -1,11 +1,8 @@
 import tabula
 import pandas as pd
+from __init__ import m_pdf_path, m_csv_name, m_condi_name, output_path
 
-m_pdf_path = ''
-m_csv_name = m_pdf_path.split('/')[-1].split('.')[0]+".csv"
-m_condi_name = "F_condi_"+m_csv_name.split("_")[-1]
-
-msg = "roll the dice"
+msg = "major"
 print(msg)
 
 df = tabula.read_pdf(m_pdf_path, pages="all",lattice=True, area=[199.7, 16 ,805.1, 579.8]) # read pdf
@@ -22,8 +19,8 @@ df_concat["설정학기"] = df_concat["설정학기"].str.split(',')
 df_concat = df_concat[["_id","구분","영역","교과목명","이수권장학년","설정학기","시간","학점","필수여부","개설학과","2023학년2학기개설여부","비고"]] # colum order
 
 df_list = df_concat.dropna(subset=["시간"]).reset_index(drop=True) # 주전공 이수 과목 목록
-df_list.to_csv(m_csv_name, mode="w") # 주전공 이수과목 목록 csv export
+df_list.to_csv(output_path+m_csv_name, mode="w") # 주전공 이수과목 목록 csv export
 
 df_condi = df_concat[df_concat["교과목명"].notnull() & df_concat["교과목명"].str.contains("이수")].drop(columns=["구분","이수권장학년","설정학기","시간","학점","개설학과","2023학년2학기개설여부","영역"]).replace(r'[^A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-후]+','',regex=True).reset_index(drop=True)
 df_condi.columns = ["_id","이수조건","필수여부","비고"]
-df_condi.to_csv(m_condi_name, mode="w") # 주전공 이수과목 조건 csv export 
+df_condi.to_csv(output_path+m_condi_name, mode="w") # 주전공 이수과목 조건 csv export 

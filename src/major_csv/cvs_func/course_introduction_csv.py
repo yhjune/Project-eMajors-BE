@@ -1,12 +1,8 @@
 import tabula
 import pandas as pd
-import os
+from __init__ import ci_pdf_path, output_path, ci_csv_name
 
-ci_pdf_path = ''
-ci_csv_name = ci_pdf_path.split('/')[-1].split('.')[0]+".csv"
-ci_output_path = ''
-
-msg = "roll the dice"
+msg = "course introduction"
 print(msg)
 
 df = tabula.read_pdf(ci_pdf_path, pages= "all", lattice=True, area=[135.3, 15.3 ,563.6 , 822.5]) #PDF 읽어오기
@@ -20,6 +16,4 @@ df_concat.drop(columns="순번")
 
 df_concat = df_concat[["_id","설정전공","교과목명","교과목명(영문)","교과목기술(국문)","교과목기술(영문)"]] # colum order 
 
-
-os.makedirs(ci_output_path,exist_ok=True)
-df_concat.to_csv(ci_output_path+ci_csv_name, mode="w") # export csv
+df_concat.to_csv(output_path+ci_csv_name, mode="w") # export csv

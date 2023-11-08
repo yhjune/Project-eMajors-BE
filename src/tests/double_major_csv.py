@@ -2,9 +2,11 @@ import tabula
 import pandas as pd
 import numpy as np
 
-msg = "double major"
+
 
 def double_major_csv(dm_pdf_path,dm_csv_name,dm_condi_name,output_path):
+    msg = "double major"
+    
     df = tabula.read_pdf(dm_pdf_path, pages="all",lattice=True, area=[163.5, 13,802.1,580.5]) # read pdf (head include)
     df_concat = pd.concat(df, ignore_index=True).dropna(thresh=4) # concat dataframe, drop rows na < 4 
 

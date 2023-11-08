@@ -1,9 +1,11 @@
 import tabula
 import pandas as pd
 
-msg = "course introduction"
+
 
 def course_introduction_csv(ci_pdf_path, ci_csv_name, output_path):
+    msg = "course introduction"
+    
     df = tabula.read_pdf(ci_pdf_path, pages= "all", lattice=True, area=[135.3, 15.3 ,563.6 , 822.5]) #PDF 읽어오기
     df_concat = pd.concat(df, ignore_index=True)
 

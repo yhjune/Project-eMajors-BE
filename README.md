@@ -38,6 +38,23 @@ virtualenv==20.24.5
 
 ## How to run
 
+```python
+python -m venv {/path/to/new/virtual/environment}
+```
+venv must be located in the same level with `src` folder:
+```
+.
+├── README.md
+├── pyproject.toml
+├── requirements.txt
+├── {your venv folder name}
+└── src
+```
+
+and then activate the venv with `source {your venv foler name}/bin/activate`
+
+lastly, install all the requiremnts with :
+
 ~~~
 pip install -r requirements.txt
 ~~~

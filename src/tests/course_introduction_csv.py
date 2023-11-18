@@ -1,7 +1,12 @@
 import tabula
 import pandas as pd
 
+root = '/Users/yhjune/Desktop/playground/pdf/'
+output_path = root+'resutls/'
+os.makedirs(output_path,exist_ok=True)
 
+ci_pdf_path = root+'major_origin/경영대학/교과목기술_경영학부.pdf'
+ci_csv_name = ci_pdf_path.split('/')[-1].split('.')[0]+".csv"
 
 def course_introduction_csv(ci_pdf_path, ci_csv_name, output_path):
     msg = "course introduction"

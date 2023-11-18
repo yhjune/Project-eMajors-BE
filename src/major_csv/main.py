@@ -5,7 +5,7 @@ from pathlib import Path
 msg = "Roll the dice"
 print(msg)
 
-## ci , dm, m file path recusive
+# ci , dm, m file path recusive
 print("...Getting file pahts...")
 root = input("root : ") # all files must be nested in the root folder
 output_path = root+"/"+input("output folder name: ")+"/" # exported csv files goes here
@@ -29,7 +29,7 @@ for idx, path in enumerate(dm_pdf_path):
     dm_condi_name = "S_condi_"+dm_csv_name.split("_")[-1]
     csv_func.csv_funcs.double_major_csv(path,dm_csv_name,dm_condi_name,output_path)
 
-## m 
+# m 
 print("Getting majors...")
 m_pdf_path = Path(root).rglob('주전공_*.pdf')
 for idx, path in enumerate(m_pdf_path):

@@ -18,7 +18,7 @@ ci_pdf_files = Path(root).rglob('교과목기술_*.pdf')
 for idx, path in enumerate(ci_pdf_files):
     path = str(path)
     ci_csv_name = path.split('/')[-1].split('.')[0]+".csv"
-    csv_func.csv_funcs.course_introduction_csv(path,ci_csv_name, output_path)
+    csv_func.transform_funcs.course_introduction_csv(path,ci_csv_name, output_path)
 
 # dm
 print("...Getting doule majors...")
@@ -27,7 +27,7 @@ for idx, path in enumerate(dm_pdf_path):
     path = str(path)
     dm_csv_name = path.split('/')[-1].split('.')[0]+".csv"
     dm_condi_name = "S_condi_"+dm_csv_name.split("_")[-1]
-    csv_func.csv_funcs.double_major_csv(path,dm_csv_name,dm_condi_name,output_path)
+    csv_func.transform_funcs.double_major_csv(path,dm_csv_name,dm_condi_name,output_path)
 
 # m 
 print("Getting majors...")
@@ -36,6 +36,6 @@ for idx, path in enumerate(m_pdf_path):
     path = str(path)
     m_csv_name = path.split('/')[-1].split('.')[0]+".csv"
     m_condi_name = "F_condi_"+m_csv_name.split("_")[-1]
-    csv_func.csv_funcs.major_csv(path, m_csv_name, m_condi_name ,output_path)
+    csv_func.transform_funcs.major_csv(path, m_csv_name, m_condi_name ,output_path)
 
 print("Exporting csv finished!")

@@ -1,7 +1,10 @@
 import os
 import tabula
 import pandas as pd
-import numpy as np
+from dotenv import load_dotenv
+import os
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 root = '/Users/yhjune/Desktop/playground/pdf/'
 output_path = root+'resutls/'
@@ -30,7 +33,7 @@ def course_intro_df(ci_pdf_path, ci_csv_name, output_path):
 
     return df_concat
 
-def course_document(dataframe):
+def ci_course_document(dataframe):
     new_courses = []
 
     for row in dataframe.itertuples():
@@ -45,13 +48,15 @@ def course_document(dataframe):
         new_courses.append(course)
     return new_courses
 
-def course_intro_document(dataframe):
+def ci_course_intro_document(dataframe):
     new_course_intros = []
     for row in dataframe.itertuples():
         course_id, department_id, course_name, course_name_eng, intro_kr, intro_eng = row.course_id, row.department_id, row.course_name, row.course_name_eng, row.intro_kr, row.intro_eng
         course_intro = {
-            "course_id" : course_id,
-            "department_id" : department_id,
+            "_id":{
+                "course_id" : course_id,
+                "department_id" : department_id
+            },
             "course_name" : course_name,
             "intro_kr": intro_kr ,
             "intro_eng": intro_eng ,
@@ -63,5 +68,30 @@ def course_intro_document(dataframe):
     return new_course_intros
 
 df = course_intro_df(ci_pdf_path, ci_csv_name, output_path)
-print(course_document(df))
-print(course_intro_document(df))
+
+ci_course_docs = ci_course_document(df)
+ci_courseinro_docs = ci_course_intro_document(df)
+
+print(ci_course_docs[1])
+print(ci_courseinro_docs[1])
+load_dotenv()
+# Replace the placeholder with your Atlas connection string
+uri = os.getenv("DB_URI")
+
+# Set the Stable API version when creating a new client
+client = MongoClient(uri, server_api=ServerApi('1'))
+
+# Send a ping to confirm a successful connection
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
+
+db = client['erode']
+course_collection = db['course']
+courseIntro_collection = db['course_intro']
+
+# result2 = courseIntro_collection.insert_many(ci_courseinro_docs)
+
+client.close()

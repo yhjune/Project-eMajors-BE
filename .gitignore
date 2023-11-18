@@ -50,3 +50,4 @@ cover/
 .pdm.toml
 
 # Environments
+.env

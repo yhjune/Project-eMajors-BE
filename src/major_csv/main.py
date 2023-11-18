@@ -5,7 +5,6 @@ from pathlib import Path
 msg = "Roll the dice"
 print(msg)
 
-
 ## ci , dm, m file path recusive
 print("...Getting file pahts...")
 root = input("root : ") # all files must be nested in the root folder

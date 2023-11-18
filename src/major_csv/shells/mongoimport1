@@ -1,2 +1,4 @@
 #!/bin/bash
 
+# deparment import
+mongoimport --uri="mongodb+srv://adminerode:20231014erode@erode.wbhvzee.mongodb.net/?retryWrites=true&w=majority" --db=erode  --type=csv --collection=department --headerline --file=/Users/yhjune/Desktop/playground/pdf/departments.csv

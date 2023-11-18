@@ -52,3 +52,5 @@ cover/
 # Environments
 .env
 department
+venv
+pyvenv.cfg

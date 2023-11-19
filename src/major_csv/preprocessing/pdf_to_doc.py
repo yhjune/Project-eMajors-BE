@@ -27,8 +27,6 @@ courseIntro_collection = db['course_intro']
 # ci , dm, m file path recusive
 print("...Getting file pahts...")
 root = input("root : ") # all files must be nested in the root folder
-# output_path = root+"/"+input("output folder name: ")+"/" # exported csv files goes here
-# os.makedirs(output_path,exist_ok=True)
 
 # Courser_introduction.pdf
 ci_course_docs =[]
@@ -154,7 +152,7 @@ for idx, doc in enumerate(ci_courseintro_docs):
         courseIntro_collection.insert_one(insert_doc)
 
 print("fin")
-
+client.close()
 
 
 

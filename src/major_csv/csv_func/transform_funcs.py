@@ -2,7 +2,7 @@ import tabula
 import pandas as pd
 import numpy as np
 
-def course_intro_df(ci_pdf_path, ci_csv_name, output_path):
+def course_intro_df(ci_pdf_path):
     msg = "course introduction"
     
     df = tabula.read_pdf(ci_pdf_path, pages= "all", lattice=True, area=[135.3, 15.3 ,563.6 , 822.5]) #PDF 읽어오기
@@ -28,11 +28,15 @@ def ci_course_doc(dataframe):
     for row in dataframe.itertuples():
         course_id, department_id, course_name = row.course_id, row.department_id, row.course_name
         course  ={ 
-            "_id" : course_id,
-            "department_id" : department_id,
-            "name" : course_name,
-            "classification": '',
-            "credit": ''
+            "_id" : {
+                "course_id":course_id,
+                "department_id" : department_id
+            },
+            "update":{
+                "name" : course_name,
+                "classification": '',
+                "credit": ''
+            }
         }
         new_courses.append(course)
     return new_courses
@@ -42,13 +46,17 @@ def ci_course_intro_doc(dataframe):
     for row in dataframe.itertuples():
         course_id, department_id, course_name, course_name_eng, intro_kr, intro_eng = row.course_id, row.department_id, row.course_name, row.course_name_eng, row.intro_kr, row.intro_eng
         course_intro = {
-            "course_id" : course_id,
-            "department_id" : department_id,
+            "_id":{
+                "course_id" : course_id,
+                "department_id" : department_id
+            },
+            "update":{
             "course_name" : course_name,
             "intro_kr": intro_kr ,
             "intro_eng": intro_eng ,
             "academic_year": '',
-            "course_name_eng" : course_name_eng 
+            "course_name_eng" : course_name_eng
+            }
         }
         new_course_intros.append(course_intro)
     
@@ -72,9 +80,7 @@ def course_introduction_csv(ci_pdf_path, ci_csv_name, output_path):
     return print(msg + ': ' +ci_csv_name)
 
 
-def double_major_df(dm_pdf_path,dm_csv_name,dm_condi_name,output_path):
-    msg = "double major"
-    
+def double_major_df(dm_pdf_path):
     df = tabula.read_pdf(dm_pdf_path, pages="all",lattice=True, area=[163.5, 13,802.1,580.5]) # read pdf (head include)
     df_concat = pd.concat(df, ignore_index=True).dropna(thresh=4) # concat dataframe, drop rows na < 4 
 
@@ -105,13 +111,21 @@ def double_major_df(dm_pdf_path,dm_csv_name,dm_condi_name,output_path):
 def dm_course_doc(dataframe): # dataframe = df_list
     new_courses =[]
     for row in dataframe.itertuples():
-        course_id, classification, department_id, credit, course_name = row.course_id, row.classification, row.department,row.credit,row.course_name
+        course_id, classification, department_id, credit, course_name, area, semester, academic_year = row.course_id, row.classification, row.department,row.credit,row.course_name, row.area, row.semester, row.academic_year
         course={
-            "_id" : course_id,
+            "_id" : {
+            "course_id":course_id,
             "department_id" : department_id,
-            "name" : course_name,
-            "classification": classification,
-            "credit": credit
+            },
+            "update":{
+                "name" : course_name,
+                "classification": classification,
+                "area":area,
+                "semester":semester,
+                "academic_year":academic_year,
+                "credit": credit
+            }
+
         }
         new_courses.append(course)
     return new_courses
@@ -145,7 +159,8 @@ def double_major_csv(dm_pdf_path,dm_csv_name,dm_condi_name,output_path):
     return print(msg+': '+dm_csv_name)
 
 
-def major_df(m_pdf_path, m_csv_name, m_condi_name, output_path):
+
+def major_df(m_pdf_path):
 
     df = tabula.read_pdf(m_pdf_path, pages="all",lattice=True, area=[163.3, 17.4 ,802.9, 579.0]) # read pdf
     df_concat = pd.concat(df, ignore_index=True).dropna(thresh=4) # concast dataframe
@@ -175,13 +190,21 @@ def major_df(m_pdf_path, m_csv_name, m_condi_name, output_path):
 def m_course_doc(dataframe): # dataframe = df_list
     new_courses =[]
     for row in dataframe.itertuples():
-        course_id, classification, department_id, credit, course_name = row.course_id, row.classification, row.department,row.credit,row.course_name
+        course_id, classification, department_id, credit, course_name, area, semester,academic_year  = row.course_id, row.classification, row.department,row.credit,row.course_name, row.area, row.semester, row.academic_year
         course = {
-            "_id" : course_id,
-            "department_id" : department_id,
-            "name" : course_name,
-            "classification": classification,
-            "credit": credit
+            "_id" : {
+            "course_id":course_id,
+            "department_id" : department_id
+
+            },
+            "update":{
+                "name" : course_name,
+                "classification": classification,
+                "area":area,
+                "semester":semester,
+                "academic_year":academic_year,
+                "credit": credit
+            }
         }
         new_courses.append(course)
     return new_courses

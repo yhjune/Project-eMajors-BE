@@ -6,16 +6,55 @@ Ewha Womans university major simulation for lower grades
 ```
 .
 ├── README.md
+├── __init__.py
 ├── pyproject.toml
+├── pyvenv.cfg
 ├── requirements.txt
 └── src
+    ├── __init__.py
     ├── major_csv
     │   ├── __init__.py
-    │   ├── course_introduction_csv.py
-    │   ├── double_major_csv.py
-    │   └── major_csv.py
+    │   ├── csv_func
+    │   │   ├── __init__.py
+    │   │   └── transform_funcs.py
+    │   ├── main.py
+    │   ├── plan_func
+    │   │   ├── __init__.py
+    │   │   ├── __pycache__
+    │   │   │   ├── __init__.cpython-311.pyc
+    │   │   │   ├── get.cpython-311.pyc
+    │   │   │   ├── input.cpython-311.pyc
+    │   │   │   ├── instance.cpython-311.pyc
+    │   │   │   ├── plan_get.cpython-311.pyc
+    │   │   │   ├── plan_input.cpython-311.pyc
+    │   │   │   ├── plan_instance.cpython-311.pyc
+    │   │   │   ├── plan_print.cpython-311.pyc
+    │   │   │   └── print.cpython-311.pyc
+    │   │   ├── plan_get.py
+    │   │   ├── plan_input.py
+    │   │   ├── plan_instance.py
+    │   │   └── plan_print.py
+    │   ├── preprocessing
+    │   │   ├── __init__.py
+    │   │   ├── pdf_to_csv.py
+    │   │   ├── pdf_to_doc.py
+    │   │   └── report_pdf.py
+    │   └── shell_func
+    │       ├── __init__.py
+    │       ├── __pycache__
+    │       │   ├── __init__.cpython-311.pyc
+    │       │   └── mongodb_client.cpython-311.pyc
+    │       ├── department
+    │       └── mongodb_client.py
     └── tests
-        └── __init__.py
+        ├── __init__.py
+        ├── course_introduction_csv.py
+        ├── course_introduction_doc.py
+        ├── double_major_csv.py
+        ├── double_major_doc.py
+        ├── files.py
+        ├── major_csv.py
+        └── major_doc.py
 ```
 
 ## requirements.txt
@@ -34,6 +73,25 @@ six==1.16.0
 tabula-py==2.8.2
 tzdata==2023.3
 virtualenv==20.24.5
+```
+
+## config file for mongoDB
+
+add `.env` file like this:
+
+```
+.
+├── README.md
+├── .env
+├── requirements.txt
+└── src
+
+```
+
+```
+# .env
+DB_URI = {"your mongoDB url"}
+
 ```
 
 ## How to run

@@ -4,8 +4,7 @@ def all_department(department_collection):
         department, college = doc.get('_id'), doc.get('college')
         print(f'학과 : {department} | 대학: {college}')
 
-def result_libaral_arts(result):
-    print("[ 필수 교양 목록 ]")
+def result(result):
     for index , value in result.items():
         if index == "course":
             for semester, courses in value.items():
@@ -19,3 +18,4 @@ def result_libaral_arts(result):
 def computings(computing_docs):
     for doc in computing_docs:
         print(doc["name"], end=" | ")
+        

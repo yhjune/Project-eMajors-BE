@@ -23,3 +23,6 @@ def course_intro(course_id,courseintro_collection):
     for course in courses:
         print(f'학수번호 :{course_id} | 과목명 : {course.get("course_name")} ')
         print(f'과목 설명 : {course.get("intro_kr")}')
+
+
+

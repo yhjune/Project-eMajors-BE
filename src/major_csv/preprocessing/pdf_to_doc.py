@@ -28,7 +28,7 @@ courseIntro_collection = db['course_intro']
 print("...Getting file pahts...")
 root = input("root : ") # all files must be nested in the root folder
 
-# Courser_introduction.pdf
+# Course_introduction.pdf
 ci_course_docs =[]
 ci_courseintro_docs = []
 print("...Getting course introductions...")

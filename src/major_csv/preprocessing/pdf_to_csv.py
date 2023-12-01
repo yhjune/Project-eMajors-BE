@@ -1,8 +1,9 @@
-from ..csv_func.transform_funcs import *
+from csv_func import *
 import os
 from pathlib import Path
 
-if __name__ == "__main__":
+def makeit():
+    
     msg = "Roll the dice"
     print(msg)
 
@@ -19,7 +20,7 @@ if __name__ == "__main__":
     for idx, path in enumerate(ci_pdf_files):
         path = str(path)
         ci_csv_name = path.split('/')[-1].split('.')[0]+".csv"
-        course_introduction_csv(path,ci_csv_name, output_path)
+        transform_funcs.course_introduction_csv(path,ci_csv_name, output_path)
 
     # dm
     print("...Getting doule majors...")
@@ -28,7 +29,7 @@ if __name__ == "__main__":
         path = str(path)
         dm_csv_name = path.split('/')[-1].split('.')[0]+".csv"
         dm_condi_name = "S_condi_"+dm_csv_name.split("_")[-1]
-        double_major_csv(path,dm_csv_name,dm_condi_name,output_path)
+        transform_funcs.double_major_csv(path,dm_csv_name,dm_condi_name,output_path)
 
     # m 
     print("Getting majors...")
@@ -37,6 +38,8 @@ if __name__ == "__main__":
         path = str(path)
         m_csv_name = path.split('/')[-1].split('.')[0]+".csv"
         m_condi_name = "F_condi_"+m_csv_name.split("_")[-1]
-        major_csv(path, m_csv_name, m_condi_name ,output_path)
+        transform_funcs.major_csv(path, m_csv_name, m_condi_name ,output_path)
 
     print("Exporting csv finished!")
+
+makeit()

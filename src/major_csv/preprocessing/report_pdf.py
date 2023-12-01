@@ -42,6 +42,7 @@ def create_horizontal_pdf(file_path, data):
     doc.build(content)
 
 if __name__ == "__main__":
+    
     my_list = [{"Item1", "tems"}, "Item 2", "Item 3", "Item 4"]
 
     pdf_file_path = "horizontal_output.pdf"

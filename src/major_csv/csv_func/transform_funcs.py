@@ -82,7 +82,7 @@ def course_introduction_csv(ci_pdf_path, ci_csv_name, output_path):
 
 def double_major_df(dm_pdf_path):
     df = tabula.read_pdf(dm_pdf_path, pages="all",lattice=True, area=[163.5, 13,802.1,580.5]) # read pdf (head include)
-    df_concat = pd.concat(df, ignore_index=True).dropna(thresh=4) # concat dataframe, drop rows na < 4 
+    df_concat = pd.concat(df, ignore_index=True).dropna(thresh=2) # concat dataframe, drop rows na < 4 
 
     if len(df_concat.columns)==13:
         df_concat.columns = ["구분","_id","교과목명","이수권장학년","설정학기","시간","학점","필수여부","학사편입생제외여부","개설학과","2023학년2학기개설여부","비고","교과과정안내"] # colums name
@@ -91,7 +91,8 @@ def double_major_df(dm_pdf_path):
     df_concat = df_concat.drop(columns='학사편입생제외여부') # colum's details
     df_concat.replace(r'\r','', regex=True, inplace=True)
     df_concat["구분"] = df_concat["구분"].ffill()
-    df_concat["영역"] = df_concat['_id'].astype(str).replace(r'\d+',np.nan,regex=True).ffill().replace(r'[^A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-핳]','',regex=True)
+
+    df_concat["영역"] = df_concat['_id'].astype(str).replace(r'\d+',np.NaN,regex=True).ffill().replace(r'[\[\]\-\#\(\)]+','',regex=True)
     df_concat["이수권장학년"] = df_concat["이수권장학년"].fillna(0).replace('계절',5).astype(int)
 
     df_concat["설정학기"] = df_concat["설정학기"].astype(str).str.split(',')
@@ -107,6 +108,7 @@ def double_major_df(dm_pdf_path):
     df_condi.columns = ["area","condition","required","note"]
     
     return df_list, df_condi
+
 
 def dm_course_doc(dataframe): # dataframe = df_list
     new_courses =[]
@@ -163,18 +165,23 @@ def double_major_csv(dm_pdf_path,dm_csv_name,dm_condi_name,output_path):
 def major_df(m_pdf_path):
 
     df = tabula.read_pdf(m_pdf_path, pages="all",lattice=True, area=[163.3, 17.4 ,802.9, 579.0]) # read pdf
-    df_concat = pd.concat(df, ignore_index=True).dropna(thresh=4) # concast dataframe
-
+    df_concat = pd.concat(df, ignore_index=True).dropna(thresh=2) # concast dataframe dropna(thresh=4)
     if len(df_concat.columns)==13:
         df_concat.columns = ["구분","_id","교과목명","이수권장학년","설정학기","시간","학점","필수여부","학사편입생제외여부","개설학과","2023학년2학기개설여부","비고","교과과정안내"] # colums name
     else: df_concat.columns = ["구분","_id","교과목명","이수권장학년","설정학기","시간","학점","필수여부","학사편입생제외여부","개설학과","2023학년2학기개설여부","비고"]
     
     df_concat = df_concat.drop(columns='학사편입생제외여부') # colum's details
     df_concat.replace(r'\r','', regex=True, inplace=True) 
-    df_concat["구분"] = df_concat["구분"].ffill() 
-    df_concat["영역"] = df_concat['_id'].astype(str).replace(r'\d+',None,regex=True).ffill().replace(r'[^A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-회]+','',regex=True)
+    df_concat["구분"] = df_concat["구분"].ffill()
+    
+    # df_concat["영역"] = df_concat['_id'].astype(str).replace(r'\d+',None,regex=True).ffill().replace(r'[^A-Za-z0-9ㄱ-ㅎㅏ-ㅣ가-회]+','',regex=True)
+    df_concat["영역"] = df_concat['_id'].astype(str).replace(r'\d+',np.NaN,regex=True).ffill().replace(r'[\[\]\-\#\(\)]+','',regex=True)
+
+    
     df_concat["이수권장학년"] = df_concat["이수권장학년"].fillna(0).replace('계절',5).astype(int) # 이수 권장 학년 상관 없는 nan -> 0, 계절 학기 -> 5
     df_concat["설정학기"] = df_concat["설정학기"].astype(str).str.split(',')
+    
+    
     df_concat = df_concat[["_id","구분","영역","교과목명","이수권장학년","설정학기","시간","학점","필수여부","개설학과","2023학년2학기개설여부","비고"]] # colum order
 
     # 주전공 이수 과목 목록

@@ -54,3 +54,6 @@ cover/
 department
 venv
 pyvenv.cfg
+
+*.pickle
+*.csv

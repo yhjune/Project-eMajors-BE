@@ -1,6 +1,7 @@
 from pathlib import Path
 import csv_func
 import pandas as pd
+import pickle
 
 # ci , dm, m file path recusive
 print("...Getting file pahts...")
@@ -55,3 +56,13 @@ print(f'total course intro : {len(df3)}')
 print(df1.head())
 print(df2.head())
 print(df3.head())
+
+
+with open(file="introductions.pickle",mode='wb') as data:
+    pickle.dump(df1, data)
+
+with open(file="majors.pickle",mode='wb') as data:
+    pickle.dump(df2, data)
+
+with open(file="double_majors.pickle",mode='wb') as data:
+    pickle.dump(df2, data)
